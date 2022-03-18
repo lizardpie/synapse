@@ -531,10 +531,10 @@ class SsoRedirectServlet(RestServlet):
             raise SynapseError(400, "SSO requires a valid public_baseurl")
 
         # if this isn't the expected hostname, redirect to the right one, so that we
-        # get our cookies back.
-        requested_uri = get_request_uri(request)
-        baseurl_bytes = self._public_baseurl.encode("utf-8")
-        if not requested_uri.startswith(baseurl_bytes):
+        # get our cookies back.        
+#        requested_uri = get_request_uri(request)
+#        baseurl_bytes = self._public_baseurl.encode("utf-8")
+#        if not requested_uri.startswith(baseurl_bytes):
             # swap out the incorrect base URL for the right one.
             #
             # The idea here is to redirect from
@@ -542,16 +542,16 @@ class SsoRedirectServlet(RestServlet):
             # to
             #    https://public.baseurl/_matrix/...
             #
-            i = requested_uri.index(b"/_matrix")
-            new_uri = baseurl_bytes[:-1] + requested_uri[i:]
-            logger.info(
-                "Requested URI %s is not canonical: redirecting to %s",
-                requested_uri.decode("utf-8", errors="replace"),
-                new_uri.decode("utf-8", errors="replace"),
-            )
-            request.redirect(new_uri)
-            finish_request(request)
-            return
+#            i = requested_uri.index(b"/_matrix")
+#            new_uri = baseurl_bytes[:-1] + requested_uri[i:]
+#            logger.info(
+#                "Requested URI %s is not canonical: redirecting to %s",
+#                requested_uri.decode("utf-8", errors="replace"),
+#                new_uri.decode("utf-8", errors="replace"),
+#            )
+#            request.redirect(new_uri)
+#            finish_request(request)
+#            return
 
         args: Dict[bytes, List[bytes]] = request.args  # type: ignore
         client_redirect_url = parse_bytes_from_args(args, "redirectUrl", required=True)
